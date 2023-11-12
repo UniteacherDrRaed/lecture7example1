@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: MainScreen(),
     );
   }
@@ -32,20 +32,56 @@ class _MainScreenState extends State<MainScreen> {
         centerTitle: true,
         backgroundColor: Colors.lime,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          ElevatedButton.icon(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.pinkAccent
-          ),
-              onPressed: (){
+      body: ElevatedButton.icon(
 
-          },
-              icon:const Icon(Icons.add_circle),
-              label: const Text("confirm adding"))
-        ],
+      style: ElevatedButton.styleFrom(
+        padding:const EdgeInsets.all(40),
+        backgroundColor: Colors.pinkAccent,
+        elevation: 10,
+        shadowColor: Colors.orange,
+        textStyle: const TextStyle(fontSize: 24),
+
       ),
+          onPressed:(){
+         showDialog(context: context,
+             barrierColor: Colors.green.shade100,
+             barrierDismissible: false,
+             builder: (context){
+           return AlertDialog(
+               title: const Text("Adding?"),
+               titleTextStyle: const TextStyle(color:Colors.white,fontSize: 29),
+               titlePadding:const  EdgeInsets.all(10),
+               elevation: 10,
+               shadowColor: Colors.blue,
+               contentPadding:const EdgeInsets.symmetric(horizontal: 14),
+               icon:const Icon(Icons.add_circle,size: 50,),
+               iconColor: Colors.orangeAccent,
+               iconPadding: const EdgeInsets.all(10),
+               backgroundColor: Colors.lime,
+               actionsAlignment:MainAxisAlignment.spaceEvenly,
+               content: const Text("Do you want to add this product?"),
+               shape: RoundedRectangleBorder(
+                 borderRadius: BorderRadius.circular(24),
+                 side: BorderSide(color:Colors.green,width: 5),
+               ),
+               contentTextStyle: const TextStyle(color: Colors.red,fontSize: 17),
+               actions: [
+                 OutlinedButton(onPressed: (){
+                   print("yes");
+                   Navigator.of(context).pop();
+                 }, child: const Text('yes')),
+                 OutlinedButton(onPressed: (){
+                   print("no");
+                   Navigator.of(context).pop();
+                 }, child: const Text("No")),
+               ],
+
+
+           );
+             });
+      },
+          icon:const Icon(Icons.add_circle),
+          label: const Text("confirm adding")),
     );
   }
 }
